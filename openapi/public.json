@@ -1,0 +1,1575 @@
+{
+  "basePath": "/api/v1",
+  "definitions": {
+    "app.Response": {
+      "description": "The Response struct is used for wrapping the API response with a code, message, and data.",
+      "properties": {
+        "code": {
+          "description": "Code is the HTTP status code or a custom code used to indicate the result of the request\n@example 200",
+          "type": "integer"
+        },
+        "data": {
+          "description": "Data is the response data (can be any object or null)\n@example {\"id\": 1, \"name\": \"John Doe\"}"
+        },
+        "msg": {
+          "description": "Msg is the message that describes the result of the request\n@example \"Request successful\""
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.Author": {
+      "properties": {
+        "avatar": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "verified": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.CategoriesResponse": {
+      "properties": {
+        "categories": {
+          "items": {
+            "$ref": "#/definitions/wattpad.Category"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.Category": {
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "name_english": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.Comment": {
+      "properties": {
+        "author": {
+          "type": "string"
+        },
+        "author_avatar": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "is_reply": {
+          "type": "boolean"
+        },
+        "parent_id": {
+          "type": "string"
+        },
+        "replies": {
+          "type": "integer"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.Language": {
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.LanguagesResponse": {
+      "properties": {
+        "languages": {
+          "items": {
+            "$ref": "#/definitions/wattpad.Language"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.Part": {
+      "properties": {
+        "comments": {
+          "type": "integer"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "draft": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "length": {
+          "type": "integer"
+        },
+        "modified_at": {
+          "type": "string"
+        },
+        "reads": {
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "votes": {
+          "type": "integer"
+        },
+        "word_count": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.PartCommentsResponse": {
+      "properties": {
+        "comments": {
+          "items": {
+            "$ref": "#/definitions/wattpad.Comment"
+          },
+          "type": "array"
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "next_offset": {
+          "description": "NextOffset is the offset of the next page; absent when this page held\nfewer comments than were asked for, which means it was the last.",
+          "type": "integer"
+        },
+        "offset": {
+          "type": "integer"
+        },
+        "part_id": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.PartDetail": {
+      "properties": {
+        "comments": {
+          "type": "integer"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "draft": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "length": {
+          "type": "integer"
+        },
+        "modified_at": {
+          "type": "string"
+        },
+        "reads": {
+          "type": "integer"
+        },
+        "story_id": {
+          "type": "string"
+        },
+        "story_title": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "votes": {
+          "type": "integer"
+        },
+        "word_count": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.PartResponse": {
+      "properties": {
+        "part": {
+          "$ref": "#/definitions/wattpad.PartDetail"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.RecommendationsResponse": {
+      "properties": {
+        "stories": {
+          "items": {
+            "$ref": "#/definitions/wattpad.Story"
+          },
+          "type": "array"
+        },
+        "story_id": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.SearchResponse": {
+      "properties": {
+        "limit": {
+          "type": "integer"
+        },
+        "next_offset": {
+          "description": "NextOffset is the offset of the next page, absent on the last one. A\npage can hold fewer than limit stories (or none) when Wattpad filters\nafter paging, so advance by next_offset rather than by the item count.",
+          "type": "integer"
+        },
+        "offset": {
+          "type": "integer"
+        },
+        "stories": {
+          "items": {
+            "$ref": "#/definitions/wattpad.Story"
+          },
+          "type": "array"
+        },
+        "total": {
+          "description": "Total is the number of matches Wattpad reports; browse requests (no\ntext query) are capped at 1500.",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.SearchUsersResponse": {
+      "properties": {
+        "limit": {
+          "type": "integer"
+        },
+        "next_offset": {
+          "description": "NextOffset is the offset of the next page; it is absent when this page\nheld fewer users than were asked for.",
+          "type": "integer"
+        },
+        "offset": {
+          "type": "integer"
+        },
+        "users": {
+          "items": {
+            "$ref": "#/definitions/wattpad.UserSummary"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.Story": {
+      "properties": {
+        "author": {
+          "$ref": "#/definitions/wattpad.Author"
+        },
+        "category_ids": {
+          "items": {
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "comments": {
+          "type": "integer"
+        },
+        "completed": {
+          "type": "boolean"
+        },
+        "cover": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "language": {
+          "$ref": "#/definitions/wattpad.Language"
+        },
+        "mature": {
+          "type": "boolean"
+        },
+        "modified_at": {
+          "type": "string"
+        },
+        "parts": {
+          "type": "integer"
+        },
+        "reads": {
+          "type": "integer"
+        },
+        "tags": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "title": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "votes": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.StoryDetail": {
+      "properties": {
+        "author": {
+          "$ref": "#/definitions/wattpad.Author"
+        },
+        "category_ids": {
+          "items": {
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "comments": {
+          "type": "integer"
+        },
+        "completed": {
+          "type": "boolean"
+        },
+        "copyright": {
+          "type": "integer"
+        },
+        "cover": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "first_part_id": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "language": {
+          "$ref": "#/definitions/wattpad.Language"
+        },
+        "last_published_at": {
+          "type": "string"
+        },
+        "mature": {
+          "type": "boolean"
+        },
+        "modified_at": {
+          "type": "string"
+        },
+        "paid_model": {
+          "type": "string"
+        },
+        "parts": {
+          "type": "integer"
+        },
+        "paywalled": {
+          "type": "boolean"
+        },
+        "rating": {
+          "type": "integer"
+        },
+        "reads": {
+          "type": "integer"
+        },
+        "tags": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "title": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "votes": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.StoryPartsResponse": {
+      "properties": {
+        "parts": {
+          "items": {
+            "$ref": "#/definitions/wattpad.Part"
+          },
+          "type": "array"
+        },
+        "story_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "total": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.StoryResponse": {
+      "properties": {
+        "story": {
+          "$ref": "#/definitions/wattpad.StoryDetail"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.UserProfile": {
+      "properties": {
+        "ambassador": {
+          "type": "boolean"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "background": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "followers": {
+          "type": "integer"
+        },
+        "following": {
+          "type": "integer"
+        },
+        "joined_at": {
+          "type": "string"
+        },
+        "lists": {
+          "type": "integer"
+        },
+        "location": {
+          "type": "string"
+        },
+        "modified_at": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "stories_published": {
+          "type": "integer"
+        },
+        "url": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "verified": {
+          "type": "boolean"
+        },
+        "votes_received": {
+          "type": "integer"
+        },
+        "website": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.UserResponse": {
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/wattpad.UserProfile"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.UserStoriesResponse": {
+      "properties": {
+        "limit": {
+          "type": "integer"
+        },
+        "next_offset": {
+          "type": "integer"
+        },
+        "offset": {
+          "type": "integer"
+        },
+        "stories": {
+          "items": {
+            "$ref": "#/definitions/wattpad.Story"
+          },
+          "type": "array"
+        },
+        "total": {
+          "type": "integer"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.UserSummary": {
+      "properties": {
+        "avatar": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "followers": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "stories_published": {
+          "type": "integer"
+        },
+        "username": {
+          "type": "string"
+        },
+        "verified": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.categoriesResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/wattpad.CategoriesResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.languagesResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/wattpad.LanguagesResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.partCommentsResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/wattpad.PartCommentsResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.partResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/wattpad.PartResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.recommendationsResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/wattpad.RecommendationsResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.searchResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/wattpad.SearchResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.searchUsersResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/wattpad.SearchUsersResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.storyPartsResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/wattpad.StoryPartsResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.storyResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/wattpad.StoryResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.userResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/wattpad.UserResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "wattpad.userStoriesResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/wattpad.UserStoriesResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "host": "api.crawlora.net",
+  "info": {
+    "contact": {
+      "email": "support@crawlora.net",
+      "name": "API Support",
+      "url": "https://crawlora.net"
+    },
+    "description": "Crawlora is a hosted web-data and SERP API: call documented REST endpoints and get normalized JSON instead of HTML to parse — across search/SERP, maps and local, e-commerce, app stores, social, media and finance. One API key; Crawlora runs the proxy rotation, headless browsers and parsing behind the scenes. Billed pay-on-success: charged only on a successful 2xx response, 1-10 credits per call, with a free tier of 2,000 credits per month and no card. A hosted MCP server (mcp.crawlora.net/mcp) exposes the same catalog as agent tools. Search endpoints accept `q` as a universal alias for whichever search-term parameter they document (`query`, `term`, `keyword`, or Amazon's `k`), so one parameter name works across the whole catalog; an explicitly supplied documented name always wins.",
+    "license": {
+      "name": "Crawlora Terms of Service",
+      "url": "https://crawlora.net/terms"
+    },
+    "termsOfService": "https://crawlora.net/terms",
+    "title": "Crawlora API",
+    "version": "1.2",
+    "x-logo": {
+      "altText": "Crawlora",
+      "backgroundColor": "#FFFFFF",
+      "url": "https://raw.githubusercontent.com/Crawlora-org/crawlora-mcp/main/assets/logo-400x400.png"
+    }
+  },
+  "paths": {
+    "/wattpad/categories": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns Wattpad's story categories (Romance, Fantasy, Fanfiction, Werewolf, ...) with id, name and English name. These ids are the values the category parameter of wattpad-search takes and the values in every story's category_ids. The list is read live from Wattpad.",
+        "operationId": "wattpad-categories",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/wattpad.categoriesResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List Wattpad story categories",
+        "tags": [
+          "wattpad"
+        ]
+      }
+    },
+    "/wattpad/languages": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns the story languages Wattpad's search can filter by, each with its numeric id and native-script name (50 at the time of writing). These ids are the values the language parameter of wattpad-search takes.",
+        "operationId": "wattpad-languages",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/wattpad.languagesResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List Wattpad story languages",
+        "tags": [
+          "wattpad"
+        ]
+      }
+    },
+    "/wattpad/part": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns one Wattpad chapter's metadata: id, title, link, word count, reads, votes, comments, length, dates and the story it belongs to (id and title). part_id is the numeric chapter id from wattpad-story-parts. A chapter that does not exist returns not found. Chapter text is never returned.",
+        "operationId": "wattpad-part",
+        "parameters": [
+          {
+            "description": "Numeric chapter id from the id field of wattpad-story-parts",
+            "in": "query",
+            "name": "part_id",
+            "required": true,
+            "type": "string",
+            "x-example": "1353317758"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/wattpad.partResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get a Wattpad chapter",
+        "tags": [
+          "wattpad"
+        ]
+      }
+    },
+    "/wattpad/part-comments": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns one page of the public reader comments on a Wattpad chapter, newest first: id, text, commenter username and avatar, reply count, whether it is a reply, parent id, link and creation time. part_id is the numeric chapter id from wattpad-story-parts. limit is 1 to 100 (default 20) and offset pages the list; next_offset is absent on the last page. A chapter with no comments, or an unknown chapter, returns an empty list.",
+        "operationId": "wattpad-part-comments",
+        "parameters": [
+          {
+            "description": "Numeric chapter id from the id field of wattpad-story-parts",
+            "in": "query",
+            "name": "part_id",
+            "required": true,
+            "type": "string",
+            "x-example": "1353317758"
+          },
+          {
+            "description": "Page size, 1 to 100; defaults to 20",
+            "in": "query",
+            "name": "limit",
+            "type": "integer",
+            "x-example": 5
+          },
+          {
+            "description": "Zero-based result offset, below 100000; defaults to 0",
+            "in": "query",
+            "name": "offset",
+            "type": "integer",
+            "x-example": 0
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/wattpad.partCommentsResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List reader comments on a Wattpad chapter",
+        "tags": [
+          "wattpad"
+        ]
+      }
+    },
+    "/wattpad/search": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Searches Wattpad's story catalog by text or browses it by ranking, category and language, and returns one page of stories: id, title, description, cover, link, author, votes, reads, comments, chapter count, completed and mature flags, language, category ids, tags and dates. Give at least one of query, filter, category or language. filter is hot, new or featured; category is an id from wattpad-categories; language is an id from wattpad-languages. limit is 1 to 100 (default 20) and offset pages the results: a text search reaches offset 9999, while browsing without a query is capped at 1500 results. Browse pages can hold fewer stories than limit (or none) because Wattpad filters after paging, so advance with next_offset rather than the item count.",
+        "operationId": "wattpad-search",
+        "parameters": [
+          {
+            "description": "Text to search for in story titles, descriptions and tags, up to 200 characters",
+            "in": "query",
+            "name": "query",
+            "type": "string",
+            "x-example": "romance"
+          },
+          {
+            "description": "Ranking: hot is currently popular, new is recently published, featured is Wattpad's featured stories",
+            "enum": [
+              "hot",
+              "new",
+              "featured"
+            ],
+            "in": "query",
+            "name": "filter",
+            "type": "string",
+            "x-example": "hot"
+          },
+          {
+            "description": "Category id from wattpad-categories, for example 4 for Romance",
+            "in": "query",
+            "name": "category",
+            "type": "integer",
+            "x-example": 4
+          },
+          {
+            "description": "Story language id from wattpad-languages, for example 1 for English",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              53
+            ],
+            "in": "query",
+            "name": "language",
+            "type": "integer",
+            "x-example": 1
+          },
+          {
+            "description": "Page size, 1 to 100; defaults to 20",
+            "in": "query",
+            "name": "limit",
+            "type": "integer",
+            "x-example": 20
+          },
+          {
+            "description": "Zero-based result offset; below 10000 with query, below 1500 without",
+            "in": "query",
+            "name": "offset",
+            "type": "integer",
+            "x-example": 0
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/wattpad.searchResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Search and browse Wattpad stories",
+        "tags": [
+          "wattpad"
+        ]
+      }
+    },
+    "/wattpad/search-users": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Searches Wattpad's authors by username or name and returns one page: username, display name, bio, avatar, verified flag, published story count and follower count. limit is 1 to 100 (default 20) and offset pages the results. Authors with a private profile or who have opted out of crawling are left out, so a page can hold fewer authors than limit; advance with next_offset.",
+        "operationId": "wattpad-search-users",
+        "parameters": [
+          {
+            "description": "Author name to search for, up to 200 characters",
+            "in": "query",
+            "name": "query",
+            "required": true,
+            "type": "string",
+            "x-example": "notjust"
+          },
+          {
+            "description": "Page size, 1 to 100; defaults to 20",
+            "in": "query",
+            "name": "limit",
+            "type": "integer",
+            "x-example": 5
+          },
+          {
+            "description": "Zero-based result offset, below 10000; defaults to 0",
+            "in": "query",
+            "name": "offset",
+            "type": "integer",
+            "x-example": 0
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/wattpad.searchUsersResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Search Wattpad authors by name",
+        "tags": [
+          "wattpad"
+        ]
+      }
+    },
+    "/wattpad/story": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns one Wattpad story's public details: title, description, cover, link, author, votes, reads, comments, chapter count, completed and mature flags, language, category ids, tags, first chapter id, last published date, rating and copyright codes, paywall flag and dates. story_id is the numeric id from the story's wattpad.com link; the full link is also accepted. A story that does not exist returns not found. Chapter text is never returned.",
+        "operationId": "wattpad-story",
+        "parameters": [
+          {
+            "description": "Numeric Wattpad story id, such as 344352588; a wattpad.com/story link is also accepted",
+            "in": "query",
+            "name": "story_id",
+            "required": true,
+            "type": "string",
+            "x-example": "344352588"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/wattpad.storyResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get a Wattpad story",
+        "tags": [
+          "wattpad"
+        ]
+      }
+    },
+    "/wattpad/story-parts": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns a Wattpad story's chapter list, in reading order: id, title, link, word count, reads, votes, comments, length, and created and modified dates for every chapter. The per-chapter reads show where readers drop off. Use it to see how a story is paced and which chapters readers react to. story_id is the numeric story id, or its wattpad.com link. Chapter text is never returned.",
+        "operationId": "wattpad-story-parts",
+        "parameters": [
+          {
+            "description": "Numeric Wattpad story id, such as 344352588; a wattpad.com/story link is also accepted",
+            "in": "query",
+            "name": "story_id",
+            "required": true,
+            "type": "string",
+            "x-example": "344352588"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/wattpad.storyPartsResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List a Wattpad story's chapters",
+        "tags": [
+          "wattpad"
+        ]
+      }
+    },
+    "/wattpad/story-recommendations": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns the stories Wattpad recommends alongside one story (readers of this also read these), with the same fields as wattpad-search: id, title, description, cover, link, author, votes, reads, comments, chapter count, completed and mature flags, language, category ids, tags and dates. story_id is the numeric story id or its wattpad.com link. Wattpad returns at most 18 recommendations and does not page; limit is 1 to 20.",
+        "operationId": "wattpad-story-recommendations",
+        "parameters": [
+          {
+            "description": "Numeric Wattpad story id, such as 344352588; a wattpad.com/story link is also accepted",
+            "in": "query",
+            "name": "story_id",
+            "required": true,
+            "type": "string",
+            "x-example": "344352588"
+          },
+          {
+            "description": "Maximum recommendations to return, 1 to 20; defaults to 20",
+            "in": "query",
+            "name": "limit",
+            "type": "integer",
+            "x-example": 5
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/wattpad.recommendationsResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List stories Wattpad recommends for a story",
+        "tags": [
+          "wattpad"
+        ]
+      }
+    },
+    "/wattpad/user": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns a Wattpad author's public profile: username, display name, bio, avatar, location, website, verified and ambassador flags, follower and following counts, votes received, published story count, reading list count and join date. username is the name from the author's wattpad.com/user/ link, case-insensitive. Authors with a private profile or who have opted out of crawling are not returned. An unknown author returns not found.",
+        "operationId": "wattpad-user",
+        "parameters": [
+          {
+            "description": "Wattpad username from wattpad.com/user/{username}; a profile link or @name is also accepted",
+            "in": "query",
+            "name": "username",
+            "required": true,
+            "type": "string",
+            "x-example": "notjustarandomgirl"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/wattpad.userResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get a Wattpad author profile",
+        "tags": [
+          "wattpad"
+        ]
+      }
+    },
+    "/wattpad/user-stories": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns one page of the stories a Wattpad author has published, with the same fields as wattpad-search: id, title, description, cover, link, votes, reads, comments, chapter count, completed and mature flags, language, category ids, tags and dates. username is the name from the author's wattpad.com/user/ link. limit is 1 to 100 (default 20) and offset pages the list; next_offset is absent on the last page. Authors with a private profile or who have opted out of crawling are not returned. This call reads the author's access settings first, so it costs two requests.",
+        "operationId": "wattpad-user-stories",
+        "parameters": [
+          {
+            "description": "Wattpad username from wattpad.com/user/{username}; a profile link or @name is also accepted",
+            "in": "query",
+            "name": "username",
+            "required": true,
+            "type": "string",
+            "x-example": "notjustarandomgirl"
+          },
+          {
+            "description": "Page size, 1 to 100; defaults to 20",
+            "in": "query",
+            "name": "limit",
+            "type": "integer",
+            "x-example": 5
+          },
+          {
+            "description": "Zero-based result offset; defaults to 0",
+            "in": "query",
+            "name": "offset",
+            "type": "integer",
+            "x-example": 0
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/wattpad.userStoriesResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List a Wattpad author's stories",
+        "tags": [
+          "wattpad"
+        ]
+      }
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "ApiKeyAuth": {
+      "in": "header",
+      "name": "x-api-key",
+      "type": "apiKey"
+    }
+  },
+  "swagger": "2.0",
+  "tags": [
+    {
+      "name": "wattpad"
+    }
+  ]
+}
